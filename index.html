@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>은평문화예술정보학교 뷰티메이크업과</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>융합 연구수업 인터랙티브 계획서 | 뷰티메이크업과 x 게임프로그래밍학과</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals & Muted Teal -->
+    <!-- Application Structure Plan: A task-oriented, single-page dashboard structure was chosen over a linear document format. The application is divided into logical, thematic sections: '개요 (Overview)', '수업 흐름 (Lesson Flow)', '역할 및 목표 (Roles & Goals)', and '자료 (Resources)'. This structure allows users (teachers, administrators) to quickly navigate to the information they need, rather than reading sequentially. The core interaction is the '수업 흐름' section, which transforms the linear lesson plan into an interactive timeline. Users can click on each session to reveal detailed activities. This design prioritizes usability and quick comprehension of the complex, multi-departmental lesson plan. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Overall lesson structure and timing (3 hours total, broken into 50, 60, 70 min sessions). -> Goal: Inform, Summarize. -> Viz/Presentation: Chart.js Doughnut Chart. -> Interaction: Static visualization providing an immediate at-a-glance summary of time allocation. -> Justification: A visual chart is more impactful for understanding time distribution than plain text. Library: Chart.js.
+        - Report Info: The step-by-step lesson plan. -> Goal: Organize, Show Process. -> Viz/Presentation: Interactive timeline/process flow built with HTML/Tailwind. -> Interaction: Users click on a session (1교시, 2교시, 3교시) to toggle the visibility of a detailed description panel for that session. -> Justification: This hides complexity initially and allows users to explore the lesson flow at their own pace, making the plan less intimidating and more engaging. Library/Method: Vanilla JS for click events and class toggling.
+        - Report Info: Goals for each department's students. -> Goal: Compare. -> Viz/Presentation: Side-by-side two-column layout using HTML/Flexbox. -> Interaction: None, the static comparison is powerful. -> Justification: Directly comparing the roles and goals of the 'practitioner' and 'client' clarifies the core pedagogical concept of the lesson. Library/Method: HTML/Tailwind.
+        - Report Info: Materials and evaluation criteria. -> Goal: Inform, Organize. -> Viz/Presentation: Checklist-style lists within distinct cards. -> Interaction: None. -> Justification: Simple, clear presentation for practical information. Library/Method: HTML/Tailwind.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #F8F7F4;
+            color: #3C3C3B;
+        }
+        .active-tab {
+            border-bottom-color: #4DB6AC;
+            color: #4DB6AC;
+            font-weight: 500;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .content-panel {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .chart-container {
+            position: relative; 
+            width: 100%; 
+            max-width: 380px; 
+            margin-left: auto; 
+            margin-right: auto; 
+            height: 300px;
+            max-height: 380px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-800 text-center">은평문화예술정보학교 뷰티메이크업과 x 게임프로그래밍학과</h1>
+            <p class="text-center text-teal-600 font-medium mt-1">융합 연구수업 인터랙티브 계획서</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        
+        <section id="overview" class="mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-center text-gray-700">수업 개요</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                 <p class="text-center text-gray-600 mb-6">본 문서는 뷰티메이크업과와 게임프로그래밍학과 학생들이 협업하여 게임 캐릭터를 완성해나가는 융합 수업의 전체적인 개요와 목표를 안내합니다.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                    <div class="bg-teal-50 p-4 rounded-lg">
+                        <p class="font-bold text-teal-800 text-lg">주제</p>
+                        <p class="text-gray-700 mt-1">게임 캐릭터 스타일링 및 실습을 위한 헤어/메이크업 제안 및 구현</p>
+                    </div>
+                    <div class="bg-amber-50 p-4 rounded-lg">
+                        <p class="font-bold text-amber-800 text-lg">대상</p>
+                        <p class="text-gray-700 mt-1">뷰티과(담당자) 20명 & 게임과(클라이언트) 20명</p>
+                    </div>
+                    <div class="bg-indigo-50 p-4 rounded-lg">
+                        <p class="font-bold text-indigo-800 text-lg">일시</p>
+                        <p class="text-gray-700 mt-1">2025년 7월 12일 (금)<br>14:30 ~ 17:30 (3시간)</p>
+                    </div>
+                     <div class="bg-rose-50 p-4 rounded-lg">
+                        <p class="font-bold text-rose-800 text-lg">장소</p>
+                        <p class="text-gray-700 mt-1">뷰티메이크업과 실습실 (샴푸실 포함), 게임프로그래밍학과 실습실</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="flow" class="mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-center text-gray-700">수업 흐름</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-center text-gray-600 mb-8">총 3시간의 수업은 3개의 교시로 구성됩니다. 각 교시를 클릭하여 시간대별 상세 활동 내용과 목표를 확인해보세요.</p>
+                <div class="flex justify-center border-b-2 border-gray-200 mb-8">
+                    <button id="tab-1" class="tab-button py-2 px-6 text-lg active-tab" onclick="changeTab(1)">1교시</button>
+                    <button id="tab-2" class="tab-button py-2 px-6 text-lg text-gray-500" onclick="changeTab(2)">2교시</button>
+                    <button id="tab-3" class="tab-button py-2 px-6 text-lg text-gray-500" onclick="changeTab(3)">3교시</button>
+                </div>
+
+                <div id="content-1" class="content-panel">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <h3 class="font-bold text-xl text-teal-700 mb-2">1교시 (50분): 오리엔테이션 및 협업 준비</h3>
+                            <p class="text-gray-600 mb-4">수업의 첫 단계로, 학생들이 서로를 이해하고 협업의 기초를 다지는 시간입니다. 클라이언트는 자신의 비전을, 담당자는 전문성을 바탕으로 소통을 시작합니다.</p>
+                            <ul class="space-y-3 list-inside">
+                                <li class="flex items-start"><span class="font-bold text-teal-600 mr-2">10분:</span><span>도입 및 목표 안내</span></li>
+                                <li class="flex items-start"><span class="font-bold text-teal-600 mr-2">15분:</span><span>팀 구성 및 역할(클라이언트/담당자) 분담</span></li>
+                                <li class="flex items-start"><span class="font-bold text-teal-600 mr-2">25분:</span><span>게임 캐릭터 컨셉 공유 및 요구사항 파악</span></li>
+                            </ul>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="timeChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div id="content-2" class="content-panel hidden">
+                     <h3 class="font-bold text-xl text-amber-700 mb-2">2교시 (60분): 디자인 제안 및 구현 준비</h3>
+                    <p class="text-gray-600 mb-4">담당자는 클라이언트의 요구사항을 바탕으로 전문적인 헤어/메이크업 디자인을 시각화하여 제안합니다. 구체적인 피드백을 통해 아이디어를 발전시키는 핵심 과정입니다.</p>
+                    <ul class="space-y-3 list-inside">
+                        <li class="flex items-start"><span class="font-bold text-amber-600 mr-2">30분:</span><span>담당자의 아이디어 스케치 기반 디자인 제안</span></li>
+                        <li class="flex items-start"><span class="font-bold text-amber-600 mr-2">20분:</span><span>클라이언트의 피드백 제공 및 디자인 수정/보완</span></li>
+                        <li class="flex items-start"><span class="font-bold text-amber-600 mr-2">10분:</span><span>최종 디자인 확정 및 구현 계획 수립</span></li>
+                    </ul>
+                </div>
+                <div id="content-3" class="content-panel hidden">
+                     <h3 class="font-bold text-indigo-700 mb-2">3교시 (70분): 디자인 구현 및 발표</h3>
+                    <p class="text-gray-600 mb-4">추상적인 아이디어가 현실이 되는 시간입니다. 담당자는 실제 스타일링을 구현하고, 팀은 협업의 결과물을 모두에게 공유하며 프로젝트를 마무리합니다.</p>
+                     <ul class="space-y-3 list-inside">
+                        <li class="flex items-start"><span class="font-bold text-indigo-600 mr-2">45분:</span><span>실제 샴푸 및 헤어 스타일링 구현</span></li>
+                        <li class="flex items-start"><span class="font-bold text-indigo-600 mr-2">20분:</span><span>팀별 최종 결과물 발표 및 상호 피드백</span></li>
+                        <li class="flex items-start"><span class="font-bold text-indigo-600 mr-2">10분:</span><span>수업 총평 및 마무리</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="roles" class="mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-center text-gray-700">역할 및 목표</h2>
+             <p class="text-center text-gray-600 mb-6 max-w-2xl mx-auto">이번 수업에서 각 학과 학생들은 명확한 역할을 맡습니다. 아래에서 각 역할의 핵심 목표를 비교하며 성공적인 협업을 위해 무엇이 필요한지 확인해보세요.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-center mb-4 text-teal-700">뷰티메이크업과 (담당자)</h3>
+                    <ul class="space-y-2 text-gray-700 list-disc list-inside">
+                        <li>클라이언트 요구사항 분석 및 이해 능력 함양</li>
+                        <li>캐릭터 컨셉에 맞는 스타일링 제안 및 디자인 능력</li>
+                        <li>실제 모델/마네킹 대상 구현 실무 능력 향상</li>
+                        <li>실제 고객(클라이언트) 대상 헤어 케어 및 스타일링 실습 경험</li>
+                        <li>전문가로서의 커뮤니케이션 및 문제 해결 능력 강화</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-center mb-4 text-amber-700">게임프로그래밍학과 (클라이언트)</h3>
+                    <ul class="space-y-2 text-gray-700 list-disc list-inside">
+                        <li>게임 캐릭터 컨셉의 명확한 전달 능력 함양</li>
+                        <li>전문가와의 협업을 통한 아이디어 구체화 경험</li>
+                        <li>디자인 구현 과정의 현실적 제약 이해</li>
+                        <li>캐릭터 디자인의 물리적/감각적 요소 직접 체험</li>
+                        <li>명확한 요구사항 정의 및 건설적 피드백 제공 능력</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="resources">
+            <h2 class="text-2xl font-bold mb-6 text-center text-gray-700">준비물 및 평가</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                 <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-center mb-4 text-gray-700">수업 준비물</h3>
+                    <div class="mb-4">
+                        <p class="font-semibold text-teal-700">뷰티메이크업과:</p>
+                        <p class="text-gray-600">헤어/메이크업 도구 일체, 가발/마네킹, 스케치 도구, 포트폴리오, <span class="font-bold">샴푸, 린스, 타월, 샴푸 의자/시설</span></p>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-amber-700">게임프로그래밍학과:</p>
+                        <p class="text-gray-600">캐릭터 기획서, 참고 이미지, 스케치 도구</p>
+                    </div>
+                 </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-center mb-4 text-gray-700">평가 계획</h3>
+                    <ul class="space-y-2 text-gray-700 list-disc list-inside">
+                        <li><span class="font-semibold">과정 평가:</span> 협업 과정에서의 참여도, 소통 능력</li>
+                        <li><span class="font-semibold">결과물 평가:</span> 요구사항 이해도, 창의성, 완성도</li>
+                        <li><span class="font-semibold">실습 과정 평가:</span> 샴푸 및 스타일링 서비스의 전문성 및 고객 만족도</li>
+                        <li><span class="font-semibold">상호 평가:</span> 팀원 간의 기여도 및 피드백</li>
+                    </ul>
+                 </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="text-center py-6 bg-white mt-12">
+        <p class="text-gray-500">은평문화예술정보학교 | 융합교육 프로젝트</p>
+    </footer>
+
+    <script>
+        const tabs = [document.getElementById('tab-1'), document.getElementById('tab-2'), document.getElementById('tab-3')];
+        const contents = [document.getElementById('content-1'), document.getElementById('content-2'), document.getElementById('content-3')];
+
+        function changeTab(tabIndex) {
+            tabs.forEach((tab, index) => {
+                const content = contents[index];
+                if (index + 1 === tabIndex) {
+                    tab.classList.add('active-tab');
+                    tab.classList.remove('text-gray-500');
+                    content.classList.remove('hidden');
+                } else {
+                    tab.classList.remove('active-tab');
+                    tab.classList.add('text-gray-500');
+                    content.classList.add('hidden');
+                }
+            });
+        }
+
+        const ctx = document.getElementById('timeChart').getContext('2d');
+        const timeChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['1교시: 오리엔테이션', '2교시: 디자인 제안', '3교시: 구현 및 발표'],
+                datasets: [{
+                    label: '수업 시간 배분 (분)',
+                    data: [50, 60, 70],
+                    backgroundColor: [
+                        'rgba(77, 182, 172, 0.7)', 
+                        'rgba(255, 183, 77, 0.7)',
+                        'rgba(121, 134, 203, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(77, 182, 172, 1)',
+                        'rgba(255, 183, 77, 1)',
+                        'rgba(121, 134, 203, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed !== null) {
+                                    label += context.parsed + '분';
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>
